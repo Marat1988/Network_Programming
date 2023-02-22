@@ -25,8 +25,6 @@ namespace Server
             //Закрываем проверку на недопустимую операцию потока в текстовом поле
             TextBox.CheckForIllegalCrossThreadCalls = false;
             buttonServerConn.Click += ButtonServerConn_Click;
-            buttonSengMsg.Click += ButtonSengMsg_Click;
-            textBoxSendMsg.KeyDown += TextBoxSendMsg_KeyDown;
         }
 
         private void ButtonServerConn_Click(object sender, EventArgs e)
@@ -37,7 +35,7 @@ namespace Server
             IPAddress iPAddress = IPAddress.Parse(textBoxIPAdress.Text.Trim()); //Получить IP-адрес, введенный в текстовое поле
             //Привязываем IP-адрес и номер порта к конечной точке сетевого узла
             IPEndPoint endPoint = new IPEndPoint(iPAddress, int.Parse(textBoxPort.Text.Trim())); //Получить номер порта, введенный в текстовое поле
-            //Отслеживаем привязанныц сетевой узел
+            //Отслеживаем привязанный сетевой узел
             socketWatch.Bind(endPoint);
             //Ограничиваем длину очереди прослушивания сокета до 20
             socketWatch.Listen(20);
@@ -50,7 +48,6 @@ namespace Server
             //После запуска потока в текстовое поле 
             textBoxLogMsg.AppendText("Начать случать инофрмацию от клиента!" + "\r\n");
         }
-
         /// <summary>
         /// Слушаем запрос от клиента
         /// </summary>
@@ -66,20 +63,6 @@ namespace Server
                 thr.IsBackground = true;
                 thr.Start(socConnection); //Запускаем поток
             }
-        }
-
-        /// <summary>
-        /// Способ отправки инофрмации клиенту
-        /// </summary>
-        /// <param name="sendMsg">Информация об отправленной строке</param>
-        private void ServerSendMsg(string sendMsg)
-        {
-            //Преобразуем входную строку в массив байтов, который может распознать машина
-            byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
-            //Отправляем клиенту инофрмацию о байтовом массиве
-            socConnection.Send(arrSendMsg);
-            //Присоединяем отправленную строковую информацию к текстовому полю textBoxLogMsg
-            textBoxLogMsg.AppendText("Сервер:\r\nВ" + GetCurrentTime().ToLongTimeString() + " отправил сообщение: " + sendMsg + "\r\n");
         }
         /// <summary>
         /// Получание информации от клиента
@@ -98,24 +81,21 @@ namespace Server
                 string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
                 //Присоединяем отправленную строковую информацию к текстовому полю textBoxLogMsg
                 textBoxLogMsg.AppendText("Клиент:\r\nВ " + GetCurrentTime().ToLongTimeString() + " от " + socketServer.RemoteEndPoint.ToString() + " получена строка: " + strSRecMsg + "\r\n");
+                ServerSendMsg("Привет, клиент!");
             }
         }
-        //Отправляем информацию клиенту
-        private void ButtonSengMsg_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Способ отправки инофрмации клиенту
+        /// </summary>
+        /// <param name="sendMsg">Информация об отправленной строке</param>
+        private void ServerSendMsg(string sendMsg)
         {
-            //Вызов метода ServerSengMsg для отправки информации клиенту
-            ServerSendMsg(textBoxSendMsg.Text.Trim());
-        }
-
-        //Сочетание клавиши Enter для отправки сообщения
-        private void TextBoxSendMsg_KeyDown(object sender, KeyEventArgs e)
-        {
-            //Если пользователь нажимает клавишу Enter
-            if (e.KeyCode == Keys.Enter)
-            {
-                //Вызывается метод, которым сервер отправляет информацию клиенту
-                ServerSendMsg(textBoxSendMsg.Text.Trim());
-            }
+            //Преобразуем входную строку в массив байтов, который может распознать машина
+            byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
+            //Отправляем клиенту инофрмацию о байтовом массиве
+            socConnection.Send(arrSendMsg);
+            //Присоединяем отправленную строковую информацию к текстовому полю textBoxLogMsg
+            textBoxLogMsg.AppendText("Сервер:\r\nВ" + GetCurrentTime().ToLongTimeString() + " отправил сообщение: " + sendMsg + "\r\n");
         }
         /// <summary>
         /// Как получить текущее системное время

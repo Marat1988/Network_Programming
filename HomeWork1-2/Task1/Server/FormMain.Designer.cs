@@ -36,50 +36,52 @@ namespace Server
             this.buttonServerConn = new System.Windows.Forms.Button();
             this.labelLogMsg = new System.Windows.Forms.Label();
             this.textBoxLogMsg = new System.Windows.Forms.TextBox();
-            this.labelSendMsg = new System.Windows.Forms.Label();
-            this.textBoxSendMsg = new System.Windows.Forms.TextBox();
-            this.buttonSengMsg = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelIPAdress
             // 
             this.labelIPAdress.AutoSize = true;
-            this.labelIPAdress.Location = new System.Drawing.Point(12, 21);
+            this.labelIPAdress.Location = new System.Drawing.Point(9, 17);
+            this.labelIPAdress.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIPAdress.Name = "labelIPAdress";
-            this.labelIPAdress.Size = new System.Drawing.Size(24, 17);
+            this.labelIPAdress.Size = new System.Drawing.Size(20, 13);
             this.labelIPAdress.TabIndex = 0;
             this.labelIPAdress.Text = "IP:";
             // 
             // textBoxIPAdress
             // 
-            this.textBoxIPAdress.Location = new System.Drawing.Point(42, 18);
+            this.textBoxIPAdress.Location = new System.Drawing.Point(32, 15);
+            this.textBoxIPAdress.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxIPAdress.Name = "textBoxIPAdress";
-            this.textBoxIPAdress.Size = new System.Drawing.Size(100, 22);
+            this.textBoxIPAdress.Size = new System.Drawing.Size(76, 20);
             this.textBoxIPAdress.TabIndex = 1;
             this.textBoxIPAdress.Text = "127.0.0.1";
             // 
             // labelPort
             // 
             this.labelPort.AutoSize = true;
-            this.labelPort.Location = new System.Drawing.Point(160, 21);
+            this.labelPort.Location = new System.Drawing.Point(120, 17);
+            this.labelPort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPort.Name = "labelPort";
-            this.labelPort.Size = new System.Drawing.Size(51, 17);
+            this.labelPort.Size = new System.Drawing.Size(40, 13);
             this.labelPort.TabIndex = 2;
             this.labelPort.Text = "PORT:";
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(227, 18);
+            this.textBoxPort.Location = new System.Drawing.Point(170, 15);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(100, 22);
+            this.textBoxPort.Size = new System.Drawing.Size(76, 20);
             this.textBoxPort.TabIndex = 3;
             this.textBoxPort.Text = "1234";
             // 
             // buttonServerConn
             // 
-            this.buttonServerConn.Location = new System.Drawing.Point(349, 11);
+            this.buttonServerConn.Location = new System.Drawing.Point(262, 9);
+            this.buttonServerConn.Margin = new System.Windows.Forms.Padding(2);
             this.buttonServerConn.Name = "buttonServerConn";
-            this.buttonServerConn.Size = new System.Drawing.Size(151, 38);
+            this.buttonServerConn.Size = new System.Drawing.Size(113, 31);
             this.buttonServerConn.TabIndex = 4;
             this.buttonServerConn.Text = "Запустить службу";
             this.buttonServerConn.UseVisualStyleBackColor = true;
@@ -87,53 +89,27 @@ namespace Server
             // labelLogMsg
             // 
             this.labelLogMsg.AutoSize = true;
-            this.labelLogMsg.Location = new System.Drawing.Point(12, 61);
+            this.labelLogMsg.Location = new System.Drawing.Point(9, 50);
+            this.labelLogMsg.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelLogMsg.Name = "labelLogMsg";
-            this.labelLogMsg.Size = new System.Drawing.Size(113, 17);
+            this.labelLogMsg.Size = new System.Drawing.Size(89, 13);
             this.labelLogMsg.TabIndex = 5;
             this.labelLogMsg.Text = "Лог сообщений:";
             // 
             // textBoxLogMsg
             // 
-            this.textBoxLogMsg.Location = new System.Drawing.Point(143, 58);
+            this.textBoxLogMsg.Location = new System.Drawing.Point(107, 47);
+            this.textBoxLogMsg.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLogMsg.Multiline = true;
             this.textBoxLogMsg.Name = "textBoxLogMsg";
-            this.textBoxLogMsg.Size = new System.Drawing.Size(357, 212);
+            this.textBoxLogMsg.Size = new System.Drawing.Size(269, 173);
             this.textBoxLogMsg.TabIndex = 6;
-            // 
-            // labelSendMsg
-            // 
-            this.labelSendMsg.AutoSize = true;
-            this.labelSendMsg.Location = new System.Drawing.Point(12, 299);
-            this.labelSendMsg.Name = "labelSendMsg";
-            this.labelSendMsg.Size = new System.Drawing.Size(145, 17);
-            this.labelSendMsg.TabIndex = 7;
-            this.labelSendMsg.Text = "Введите сообщение:";
-            // 
-            // textBoxSendMsg
-            // 
-            this.textBoxSendMsg.Location = new System.Drawing.Point(163, 299);
-            this.textBoxSendMsg.Name = "textBoxSendMsg";
-            this.textBoxSendMsg.Size = new System.Drawing.Size(194, 22);
-            this.textBoxSendMsg.TabIndex = 8;
-            // 
-            // buttonSengMsg
-            // 
-            this.buttonSengMsg.Location = new System.Drawing.Point(368, 284);
-            this.buttonSengMsg.Name = "buttonSengMsg";
-            this.buttonSengMsg.Size = new System.Drawing.Size(132, 53);
-            this.buttonSengMsg.TabIndex = 9;
-            this.buttonSengMsg.Text = "Отправить сообщение";
-            this.buttonSengMsg.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 369);
-            this.Controls.Add(this.buttonSengMsg);
-            this.Controls.Add(this.textBoxSendMsg);
-            this.Controls.Add(this.labelSendMsg);
+            this.ClientSize = new System.Drawing.Size(416, 240);
             this.Controls.Add(this.textBoxLogMsg);
             this.Controls.Add(this.labelLogMsg);
             this.Controls.Add(this.buttonServerConn);
@@ -141,6 +117,7 @@ namespace Server
             this.Controls.Add(this.labelPort);
             this.Controls.Add(this.textBoxIPAdress);
             this.Controls.Add(this.labelIPAdress);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormMain";
             this.Text = "Server";
             this.ResumeLayout(false);
@@ -157,9 +134,6 @@ namespace Server
         private System.Windows.Forms.Button buttonServerConn;
         private System.Windows.Forms.Label labelLogMsg;
         private System.Windows.Forms.TextBox textBoxLogMsg;
-        private System.Windows.Forms.Label labelSendMsg;
-        private System.Windows.Forms.TextBox textBoxSendMsg;
-        private System.Windows.Forms.Button buttonSengMsg;
     }
 }
 
