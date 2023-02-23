@@ -71,7 +71,7 @@ namespace Client
         /// <param name="sendMsg">Информация об отправленной строке</param>
         private void ClientSendMsg(string sendMsg)
         {
-            //Преобразуем входнуюб строку в массив байтов, который может распознать машина
+            //Преобразуем входную строку в массив байтов, который может распознать машина
             byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(sendMsg);
             //Вызов клиентского сокета для отправки байтового массива
             socketClient.Send(arrClientSendMsg);

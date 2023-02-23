@@ -46,7 +46,7 @@ namespace Server
             //Запускаем поток
             threadWatch.Start();
             //После запуска потока в текстовое поле 
-            textBoxLogMsg.AppendText("Начать случать инофрмацию от клиента!" + "\r\n");
+            textBoxLogMsg.AppendText("Начать слушать инофрмацию от клиента!" + "\r\n");
         }
         /// <summary>
         /// Слушаем запрос от клиента
@@ -81,6 +81,7 @@ namespace Server
                 string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
                 //Присоединяем отправленную строковую информацию к текстовому полю textBoxLogMsg
                 textBoxLogMsg.AppendText("Клиент:\r\nВ " + GetCurrentTime().ToLongTimeString() + " от " + socketServer.RemoteEndPoint.ToString() + " получена строка: " + strSRecMsg + "\r\n");
+                //Сервер на все запросы тупо отвечает: "Привет, клиент!"
                 ServerSendMsg("Привет, клиент!");
             }
         }
