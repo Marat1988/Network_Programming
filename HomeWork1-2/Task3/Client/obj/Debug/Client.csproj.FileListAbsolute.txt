@@ -1,0 +1,9 @@
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\bin\Debug\Client.exe.config
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\bin\Debug\Client.exe
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\bin\Debug\Client.pdb
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\obj\Debug\Client.FormMain.resources
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\obj\Debug\Client.Properties.Resources.resources
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\obj\Debug\Client.csproj.GenerateResource.cache
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\obj\Debug\Client.exe
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork1-2\Task3\Client\obj\Debug\Client.pdb
