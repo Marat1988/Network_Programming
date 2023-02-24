@@ -25,7 +25,7 @@ namespace Client
         private void ButtonBeginListen_Click(object sender, EventArgs e)
         {
 
-            client = new ClientModel.Client(textBoxIPAdress.Text, int.Parse(textBoxPort.Text), WhoIsConnect.People);
+            client = new ClientModel.Client(textBoxIPAdress.Text, int.Parse(textBoxPort.Text), checkBoxMode.Checked ? WhoIsConnect.people : WhoIsConnect.computer);
             client.infoMessage += Client_infoMessage;
             client?.Start();
         }

@@ -15,7 +15,7 @@ namespace Server
             buttonBeginStartServer.Click += ButtonBeginStartServer_Click;
             buttonSengMsg.Click += ButtonSengMsg_Click;
             buttonStopService.Click += ButtonStopService_Click;
-            server = new ModelServer.Server(textBoxIPAdress.Text, int.Parse(textBoxPort.Text), WhoIsConnect.people);
+            server = new ModelServer.Server(textBoxIPAdress.Text, int.Parse(textBoxPort.Text), checkBoxMode.Checked ? WhoIsConnect.people : WhoIsConnect.computer);
             server.InfoMessage += Server_InfoMessage;
         }
 

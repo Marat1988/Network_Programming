@@ -2,7 +2,7 @@
 {
     public enum WhoIsConnect
     {
-        Computer,
-        People
+        computer,
+        people
     }
 }
