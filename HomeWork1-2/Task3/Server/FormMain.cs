@@ -12,7 +12,6 @@ namespace Server
         Thread threadWatch = null; //Поток, отвечающий за мониторинг клиента
         Socket socketWatch = null; //Сокет, отвечающий за пониторинг клиента
         Socket socConnection = null; //Создаем сокет, отвечающий за связь с клиентом
-
         public FormMain()
         {
             InitializeComponent();
@@ -21,7 +20,6 @@ namespace Server
             buttonBeginStartServer.Click += ButtonBeginStartServer_Click;
             buttonSengMsg.Click += ButtonSengMsg_Click;
         }
-
         private void ButtonBeginStartServer_Click(object sender, EventArgs e)
         {
             //Определяем сокет для отслеживания информации, отправляемой клиентом, включая 3 параметра (протокол адресации IP4, потоковое соединение, протокол TCP)
@@ -51,7 +49,7 @@ namespace Server
             while (true) //Постоянно отслеживать запросы от клиента
             {
                 socConnection = socketWatch.Accept();
-                textBoxLogMsg.AppendText("Клиентское соединение успешно" + "\r\n");
+                textBoxLogMsg.AppendText("Клиентское соединение " + socConnection.RemoteEndPoint + " успешно " + "\r\n");
                 //Создаем коммуникационный поток
                 ParameterizedThreadStart pts = new ParameterizedThreadStart(ServerRecMsg);
                 Thread thr = new Thread(pts);
@@ -65,31 +63,50 @@ namespace Server
         /// <param name="sendMsg">Информация об отправленной строке</param>
         private void ServerSendMsg(string sendMsg)
         {
-            //Преобразуем входную строку в массив байтов, который может распознать машина
-            byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
-            //Отправляем клиенту информацию о байтовом массиве
-            socConnection.Send(arrSendMsg);
-            //Присоединяем отправленную строковую информацию к текстовому полю
-            textBoxLogMsg.AppendText("Сервер:\nВ " + DateTime.Now + " отправил " + sendMsg + "\r\n");
-        }
+            try
+            {
+                //Преобразуем входную строку в массив байтов, который может распознать машина
+                byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
+                //Отправляем клиенту информацию о байтовом массиве
+                socConnection.Send(arrSendMsg);
+                //Присоединяем отправленную строковую информацию к текстовому полю
+                textBoxLogMsg.AppendText("Сервер: В " + DateTime.Now + " отправил " + sendMsg + "\r\n");
+            }
+            catch (SocketException ex)
+            {
+                textBoxLogMsg.AppendText(ex.Message + "\r\n");
+            }
 
+        }
         /// <summary>
-        /// Получение инофрмации от клиента
+        /// Получение информации от клиента
         /// </summary>
         /// <param name="socketClientPara">Объект клиентского сокета</param>
         private void ServerRecMsg(object socketClientPara)
         {
             Socket socketServer = socketClientPara as Socket;
-            while (true)
+            try
             {
-                //Создаем буфер памяти размером 1024X1024 байта, что составляет 1М
-                byte[] arrServerRecMsg = new byte[1024 * 1024];
-                int length = socketServer.Receive(arrServerRecMsg);
-                //Преобразуем байтовый массив, полученный машиной в строку, которая может быть прочитана людьми
-                string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
-                //Присоединяем отправленную строковую информаци к текстовому полю
-                textBoxLogMsg.AppendText("Клиент:\nВ " + DateTime.Now + " отправил " + strSRecMsg + "\r\n");
+                while (true)
+                {
+                    //Создаем буфер памяти размером 1024X1024 байта, что составляет 1М
+                    byte[] arrServerRecMsg = new byte[1024 * 1024];
+                    int length = socketServer.Receive(arrServerRecMsg);
+                    if (length == 0 || socketServer.Connected == false)
+                    {
+                        textBoxLogMsg.AppendText("Связь с клиентом потеряна" + "\r\n");
+                        break;
+                    }
+                    string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
+                    //Присоединяем отправленную строковую информаци к текстовому полю
+                    textBoxLogMsg.AppendText("Клиент: В " + DateTime.Now + " от " + socketServer.RemoteEndPoint + " получено: " + strSRecMsg + "\r\n");
+                }
             }
+            catch (SocketException ex)
+            {
+                textBoxLogMsg.AppendText(ex.Message + "\r\n");
+            }
+
         }
         //Отправляем информацию клиенту
         private void ButtonSengMsg_Click(object sender, EventArgs e)
