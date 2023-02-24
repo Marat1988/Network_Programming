@@ -46,7 +46,11 @@ namespace Server
             //Запускаем поток
             threadWatch.Start();
             //После запуска потока в текстовое поле 
+<<<<<<< Updated upstream
             textBoxLogMsg.AppendText("Начать слушать инофрмацию от клиента!" + "\r\n");
+=======
+            textBoxLogMsg.AppendText("Слушаю информацию от клиентов: " + "\r\n");
+>>>>>>> Stashed changes
         }
         /// <summary>
         /// Слушаем запрос от клиента
@@ -64,6 +68,23 @@ namespace Server
                 thr.Start(socConnection); //Запускаем поток
             }
         }
+<<<<<<< Updated upstream
+=======
+
+        /// <summary>
+        /// Способ отправки инофрмации клиенту
+        /// </summary>
+        /// <param name="sendMsg">Информация об отправленной строке</param>
+        private void ServerSendMsg(string sendMsg)
+        {
+            //Преобразуем входную строку в массив байтов, который может распознать машина
+            byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
+            //Отправляем клиенту инофрмацию о байтовом массиве
+            socConnection.Send(arrSendMsg);
+            //Присоединяем отправленную строковую информацию к текстовому полю textBoxLogMsg
+            textBoxLogMsg.AppendText("Сервер:\r\nВ " + GetCurrentTime().ToLongTimeString() + " отправил сообщение: " + sendMsg + "\r\n");
+        }
+>>>>>>> Stashed changes
         /// <summary>
         /// Получание информации от клиента
         /// </summary>
