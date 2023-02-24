@@ -54,7 +54,7 @@ namespace Client.ClientModel
             try
             {
                 AutoAnswer();
-                while (true) //Постоянно отслеживать сообщения с сервера
+                while (socketClient!=null) //Постоянно отслеживать сообщения с сервера
                 {
                     //Определяем буфер памяти 1М для временного хранения полученной информации
                     byte[] arrRecMsg = new byte[1024 * 1024];
@@ -97,6 +97,8 @@ namespace Client.ClientModel
                     socketClient.Send(arrClientSendMsg);
                     //Добавляем отправленную информацию в текстовое поле содержимого чата
                     InfoMessage("Марат: В " + DateTime.Now.ToString() + " отправил " + sendMsg + "\r\n");
+                    if (sendMsg == "bye")
+                        CloseClient();
                 }
                 catch (Exception ex)
                 {
@@ -110,11 +112,14 @@ namespace Client.ClientModel
             //Если компьютер, то тупо отвечаем
             if (whoIsConnect == WhoIsConnect.computer)
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(1500);
                 int answer = new Random().Next(Word.words.Length);
                 byte[] arrSendMsg = Encoding.UTF8.GetBytes(Word.words[answer]);
-                socketClient.Send(arrSendMsg);
+                socketClient?.Send(arrSendMsg);
                 InfoMessage("Марат: В " + DateTime.Now + " отправил " + Word.words[answer] + "\r\n");
+                if (Word.words[answer] == "bye")
+                    CloseClient();
+
             }
         }
 

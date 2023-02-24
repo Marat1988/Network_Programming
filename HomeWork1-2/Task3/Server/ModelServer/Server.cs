@@ -90,9 +90,11 @@ namespace Server.ModelServer
                         //Преобразуем входную строку в массив байтов, который может распознать машина
                         byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
                         //Отправляем клиенту информацию о байтовом массиве
-                        socConnection.Send(arrSendMsg);
+                        socConnection?.Send(arrSendMsg);
                         //Присоединяем отправленную строковую информацию
                         InfoMessage("Сервер: В " + DateTime.Now + " отправил " + sendMsg + "\r\n");
+                        if (sendMsg == "bye")
+                            StopServer();
                     }
                     catch (SocketException ex)
                     {
@@ -110,7 +112,7 @@ namespace Server.ModelServer
             Socket socketServer = socketClientPara as Socket;
             try
             {
-                while (true)
+                while (socketServer != null)
                 {
                     //Создаем буфер памяти размером 1024X1024 байта, что составляет 1М
                     byte[] arrServerRecMsg = new byte[1024 * 1024];
@@ -137,11 +139,13 @@ namespace Server.ModelServer
             //Если компьютер, то тупо отвечаем
             if (whoIsConnect == WhoIsConnect.computer)
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(1500);
                 int answer = new Random().Next(Word.words.Length);
                 byte[] arrSendMsg = Encoding.UTF8.GetBytes(Word.words[answer]);
-                socConnection.Send(arrSendMsg);
+                socConnection?.Send(arrSendMsg);
                 InfoMessage("Сервер: В " + DateTime.Now + " отправил " + Word.words[answer] + "\r\n");
+                if (Word.words[answer] == "bye")
+                    StopServer();
             }
         }
 
