@@ -102,7 +102,6 @@ namespace Client
             }
         }
 
-
         public event Action<string> infoMessage;
     }
 }
