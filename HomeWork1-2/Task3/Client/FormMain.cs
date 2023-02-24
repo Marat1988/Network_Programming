@@ -26,7 +26,7 @@ namespace Client
         {
 
             client = new ClientModel.Client(textBoxIPAdress.Text, int.Parse(textBoxPort.Text), checkBoxMode.Checked ? WhoIsConnect.people : WhoIsConnect.computer);
-            client.infoMessage += Client_infoMessage;
+            client.InfoMessage += Client_infoMessage;
             client?.Start();
         }
 

@@ -43,7 +43,7 @@ namespace Client.ClientModel
             }
             catch (SocketException ex)
             {
-                infoMessage(ex.Message + "\r\n");
+                InfoMessage(ex.Message + "\r\n");
             }
         }
         /// <summary>
@@ -53,6 +53,7 @@ namespace Client.ClientModel
         {
             try
             {
+                AutoAnswer();
                 while (true) //Постоянно отслеживать сообщения с сервера
                 {
                     //Определяем буфер памяти 1М для временного хранения полученной информации
@@ -61,18 +62,19 @@ namespace Client.ClientModel
                     int length = socketClient.Receive(arrRecMsg);
                     if (length==0 || socketClient.Connected == false)
                     {
-                        infoMessage("Связь с сервером потеряна" + "\r\n");
+                        InfoMessage("Связь с сервером потеряна" + "\r\n");
                         break;
                     }
                     //Преобразуем байтовый массив, полученной сокетом в строку, понятную людям
                     string strRecMsg = Encoding.UTF8.GetString(arrRecMsg, 0, length);
                     //Добавляем отправленную информацию в текстовое поле
-                    infoMessage("Сервер: В " + DateTime.Now + " отправил " + strRecMsg + "\r\n");
+                    InfoMessage("Сервер: В " + DateTime.Now + " отправил " + strRecMsg + "\r\n");
+                    AutoAnswer();
                 }
             }
             catch (SocketException ex)
             {
-                infoMessage(ex.Message + "\r\n");
+                InfoMessage(ex.Message + "\r\n");
             }
         }
         /// <summary>
@@ -81,18 +83,38 @@ namespace Client.ClientModel
         /// <param name="sendMsg">Информация об отправленной строке</param>
         public void ClientSendMsg(string sendMsg)
         {
-            try
+            if (whoIsConnect == WhoIsConnect.computer)
             {
-                //Преобразуем входную строку в массив байтов, которая может распознать машина
-                byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(sendMsg);
-                //Вызов клиентского сокета для отправки байтового массива
-                socketClient.Send(arrClientSendMsg);
-                //Добавляем отправленную информацию в текстовое поле содержимого чата
-                infoMessage("Марат: В " + DateTime.Now.ToString() + " отправил " + sendMsg + "\r\n");
+                InfoMessage("Включен режим компьютера" + "\r\n");
             }
-            catch (Exception ex)
+            else
             {
-                infoMessage(ex.Message + "\r\n");
+                try
+                {
+                    //Преобразуем входную строку в массив байтов, которая может распознать машина
+                    byte[] arrClientSendMsg = Encoding.UTF8.GetBytes(sendMsg);
+                    //Вызов клиентского сокета для отправки байтового массива
+                    socketClient.Send(arrClientSendMsg);
+                    //Добавляем отправленную информацию в текстовое поле содержимого чата
+                    InfoMessage("Марат: В " + DateTime.Now.ToString() + " отправил " + sendMsg + "\r\n");
+                }
+                catch (Exception ex)
+                {
+                    InfoMessage(ex.Message + "\r\n");
+                }
+            }
+        }
+
+        private void AutoAnswer()
+        {
+            //Если компьютер, то тупо отвечаем
+            if (whoIsConnect == WhoIsConnect.computer)
+            {
+                Thread.Sleep(3000);
+                int answer = new Random().Next(Word.words.Length);
+                byte[] arrSendMsg = Encoding.UTF8.GetBytes(Word.words[answer]);
+                socketClient.Send(arrSendMsg);
+                InfoMessage("Марат: В " + DateTime.Now + " отправил " + Word.words[answer] + "\r\n");
             }
         }
 
@@ -105,6 +127,6 @@ namespace Client.ClientModel
             }
         }
 
-        public event Action<string> infoMessage;
+        public event Action<string> InfoMessage;
     }
 }

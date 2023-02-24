@@ -73,24 +73,31 @@ namespace Server.ModelServer
         /// <param name="sendMsg">Информация об отправленной строке</param>
         public void ServerSendMsg(string sendMsg)
         {
-            if (socConnection == null)
+            if (whoIsConnect == WhoIsConnect.computer)
             {
-                InfoMessage("Клиент не определен" + "\r\n");
+                InfoMessage("Включен режим компьютера" + "\r\n");
             }
             else
             {
-                try
+                if (socConnection == null)
                 {
-                    //Преобразуем входную строку в массив байтов, который может распознать машина
-                    byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
-                    //Отправляем клиенту информацию о байтовом массиве
-                    socConnection.Send(arrSendMsg);
-                    //Присоединяем отправленную строковую информацию
-                    InfoMessage("Сервер: В " + DateTime.Now + " отправил " + sendMsg + "\r\n");
+                    InfoMessage("Клиент не определен" + "\r\n");
                 }
-                catch (SocketException ex)
+                else
                 {
-                    InfoMessage(ex.Message + "\r\n");
+                    try
+                    {
+                        //Преобразуем входную строку в массив байтов, который может распознать машина
+                        byte[] arrSendMsg = Encoding.UTF8.GetBytes(sendMsg);
+                        //Отправляем клиенту информацию о байтовом массиве
+                        socConnection.Send(arrSendMsg);
+                        //Присоединяем отправленную строковую информацию
+                        InfoMessage("Сервер: В " + DateTime.Now + " отправил " + sendMsg + "\r\n");
+                    }
+                    catch (SocketException ex)
+                    {
+                        InfoMessage(ex.Message + "\r\n");
+                    }
                 }
             }
         }
@@ -116,11 +123,25 @@ namespace Server.ModelServer
                     string strSRecMsg = Encoding.UTF8.GetString(arrServerRecMsg, 0, length);
                     //Присоединяем отправленную строковую информацию
                     InfoMessage("Клиент: В " + DateTime.Now + " от " + socketServer.RemoteEndPoint + " получено: " + strSRecMsg + "\r\n");
+                    AutoAnswer();
                 }
             }
             catch (SocketException ex)
             {
                 InfoMessage(ex.Message + "\r\n");
+            }
+        }
+
+        private void AutoAnswer()
+        {
+            //Если компьютер, то тупо отвечаем
+            if (whoIsConnect == WhoIsConnect.computer)
+            {
+                Thread.Sleep(3000);
+                int answer = new Random().Next(Word.words.Length);
+                byte[] arrSendMsg = Encoding.UTF8.GetBytes(Word.words[answer]);
+                socConnection.Send(arrSendMsg);
+                InfoMessage("Сервер: В " + DateTime.Now + " отправил " + Word.words[answer] + "\r\n");
             }
         }
 
