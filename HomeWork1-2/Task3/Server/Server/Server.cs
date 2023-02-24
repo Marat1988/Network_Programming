@@ -6,6 +6,7 @@ using System.Threading;
 
 namespace Server
 {
+
     public class Server
     {
         private Thread threadWatch = null; //Поток, отвечающий за мониторинг клиента

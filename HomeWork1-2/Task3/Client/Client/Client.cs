@@ -6,6 +6,7 @@ using System.Threading;
 
 namespace Client
 {
+
     public class Client
     {
         private Socket socketClient = null;
