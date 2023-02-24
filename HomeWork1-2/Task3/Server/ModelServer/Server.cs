@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace Server
+namespace Server.ModelServer
 {
 
     public class Server
@@ -14,11 +14,13 @@ namespace Server
         private Socket socConnection = null; //Создаем сокет, отвечающий за связь с клиентом
         private string strAddr;
         private int port;
+        private WhoIsConnect whoIsConnect;
 
-        public Server(string strAddr, int port)
+        public Server(string strAddr, int port, WhoIsConnect whoIsConnect)
         {
             this.strAddr = strAddr;
             this.port = port;
+            this.whoIsConnect = whoIsConnect;
         }
 
         public void StartServer()

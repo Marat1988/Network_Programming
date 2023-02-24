@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Client.ClientModel;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace Client
+namespace Client.ClientModel
 {
 
     public class Client
@@ -13,11 +14,12 @@ namespace Client
         private Thread threadClient = null;
         private string ipAddr;
         private int port;
-
-        public Client(string ipAddr, int port)
+        private WhoIsConnect whoIsConnect;
+        public Client(string ipAddr, int port, WhoIsConnect whoIsConnect)
         {
             this.ipAddr = ipAddr;
             this.port = port;
+            this.whoIsConnect = whoIsConnect;
         }
 
         public void Start()

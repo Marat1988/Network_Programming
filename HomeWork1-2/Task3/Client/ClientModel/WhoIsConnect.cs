@@ -1,4 +1,4 @@
-﻿namespace Client
+﻿namespace Client.ClientModel
 {
     public enum WhoIsConnect
     {

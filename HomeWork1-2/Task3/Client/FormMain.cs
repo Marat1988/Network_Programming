@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
+using Client.ClientModel;
 
 namespace Client
 {
     public partial class FormMain : Form
     {
-        Client client;
+        ClientModel.Client client;
         public FormMain()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace Client
         private void ButtonBeginListen_Click(object sender, EventArgs e)
         {
 
-            client = new Client(textBoxIPAdress.Text, int.Parse(textBoxPort.Text));
+            client = new ClientModel.Client(textBoxIPAdress.Text, int.Parse(textBoxPort.Text), WhoIsConnect.People);
             client.infoMessage += Client_infoMessage;
             client?.Start();
         }

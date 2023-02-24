@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.ModelServer;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Server
 {
     public partial class FormMain : Form
     {
-        Server server;
+        ModelServer.Server server;
         public FormMain()
         {
             InitializeComponent();
@@ -18,7 +19,7 @@ namespace Server
             buttonBeginStartServer.Click += ButtonBeginStartServer_Click;
             buttonSengMsg.Click += ButtonSengMsg_Click;
             buttonStopService.Click += ButtonStopService_Click;
-            server = new Server(textBoxIPAdress.Text, int.Parse(textBoxPort.Text));
+            server = new ModelServer.Server(textBoxIPAdress.Text, int.Parse(textBoxPort.Text), WhoIsConnect.people);
             server.InfoMessage += Server_InfoMessage;
         }
 

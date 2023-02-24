@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace Server.ModelServer
 {
     public enum WhoIsConnect
     {
