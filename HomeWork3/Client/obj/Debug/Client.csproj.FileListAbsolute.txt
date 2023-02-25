@@ -7,3 +7,4 @@ C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\Client\obj\Debug\Clie
 C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\Client\obj\Debug\Client.exe
 C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\Client\obj\Debug\Client.pdb
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\Client\obj\Debug\Client.csproj.AssemblyReference.cache
