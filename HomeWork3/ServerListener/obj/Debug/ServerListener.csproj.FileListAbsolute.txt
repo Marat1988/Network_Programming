@@ -1,0 +1,9 @@
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\bin\Debug\ServerListener.exe.config
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\bin\Debug\ServerListener.exe
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\bin\Debug\ServerListener.pdb
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.FormMain.resources
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.Properties.Resources.resources
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.csproj.GenerateResource.cache
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.exe
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.pdb
