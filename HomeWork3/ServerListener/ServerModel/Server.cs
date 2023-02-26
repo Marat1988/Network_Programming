@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -11,11 +12,16 @@ namespace ServerListener.ServerModel
         private TcpListener tcpListener; //слушатель подключений от TCP-клиентов
         private string ipAddress; //Ip-адрес
         private int port; //Номер порта
+        private int maxRequestsUser; //Максимальное количество запросов
+        private delegate void SendMessageUser(string message);
+        private List<User> clients; //Подключенные клиенты
 
-        public Server(string ipAddress, int port)
+        public Server(string ipAddress, int port, int maxRequestsUser)
         {
             this.ipAddress = ipAddress;
             this.port = port;
+            this.maxRequestsUser = maxRequestsUser;
+            clients = new List<User>();
         }
 
         //Запуск сервера
@@ -50,12 +56,14 @@ namespace ServerListener.ServerModel
                 while (true)
                 {
                     TcpClient client = tcpListener.AcceptTcpClient();
+                    SendMessage("Hello", client);
+                    InfoMessage("Сервер: В " + DateTime.Now + " к нам подключился " + client.Client.RemoteEndPoint);
+                    clients.Add(new User(client, 0)); //Добавляем клиентов в массив
                     //Создаем поток для принятия и отправки сообщений
                     ParameterizedThreadStart pts = new ParameterizedThreadStart(ThreadMessage);
                     Thread thread = new Thread(pts);
                     thread.IsBackground = true;
                     thread.Start(client);
-                    InfoMessage("Сервер: В " + DateTime.Now + " к нам подключился " + client.Client.RemoteEndPoint);
                 }
             }
             catch (SocketException sockEx)
@@ -84,26 +92,37 @@ namespace ServerListener.ServerModel
                     NetworkStream stream = client.GetStream();
                     //Считываем длину данных
                     int length = stream.Read(responseData, 0, responseData.Length);
+                    var findClient = clients.Find(user => user.TcpClient.Client.RemoteEndPoint == client.Client.RemoteEndPoint);
+                    findClient.CountRequests++;
                     //Если полученный пакет данных равен нулю, то значит клиент оборвался или отключился
                     if (client.Available == 0 && client.Client.Poll(1, SelectMode.SelectRead))
                     {
                         InfoMessage("Клиент " + client.Client.RemoteEndPoint + " отключился от сети или связь оборвана");
                         stream.Close();
                         client.Close();
+                        clients.Remove(findClient);
                         break;
                     }
                     //Преобразуем данные в понятную людям кодировку
                     string clientInfo = Encoding.UTF8.GetString(responseData, 0, length);
                     InfoMessage("От клиента " + client.Client.RemoteEndPoint + " получен запрос " + clientInfo);
-                    //Узнаем курс
-                    string kursInfo = InfoKurs.getInfoKurs(clientInfo);
-                    if (kursInfo != null)
+                    if (findClient.CountRequests > maxRequestsUser)
                     {
-                        //Преобразуем данные по курсу в массив байт
-                        byte[] msg = Encoding.UTF8.GetBytes(kursInfo);
-                        //Отправляем данные обратно клиенту (ответ)
-                        stream.Write(msg, 0, msg.Length);
-                        InfoMessage("Сервер: В " + DateTime.Now + " отправил " + client.Client.RemoteEndPoint + " " + kursInfo);
+                        SendMessage("Вы превысили максимальное количество запросов. Вы будете отключены", client);
+                        InfoMessage("Сервер: В " + DateTime.Now + " отключил клиента " + client.Client.RemoteEndPoint);
+                        stream.Close();
+                        client.Close();
+                        clients.Remove(findClient);
+                        break;
+                    }
+                    else
+                    {
+                        //Узнаем курс
+                        string kursInfo = InfoKurs.getInfoKurs(clientInfo);
+                        if (kursInfo != null)
+                        {
+                            SendMessage(kursInfo, client);
+                        }
                     }
                 }
             }
@@ -115,6 +134,19 @@ namespace ServerListener.ServerModel
             {
                 InfoMessage("Ошибка: " + ex.Message);
             }
+        }
+        /// <summary>
+        /// Иетод отправки клиенту сообщения
+        /// </summary>
+        /// <param name="message">Сообщение</param>
+        /// <param name="tcpClient">TCP-клиент</param>
+        private void SendMessage(string message, TcpClient tcpClient)
+        {
+            //Преобразуем данные по курсу в массив байт
+            byte[] msg = Encoding.UTF8.GetBytes(message);
+            //Отправляем данные обратно клиенту (ответ)
+            tcpClient.GetStream().Write(msg, 0, msg.Length);
+            InfoMessage("Сервер: В " + DateTime.Now + " отправил " + tcpClient.Client.RemoteEndPoint + " " + message);
         }
 
         public void CloseServer()

@@ -33,7 +33,7 @@ namespace Client
         {
             List<RadioButton> radioButtons = groupBoxKurs.Controls.OfType<RadioButton>().ToList();
             string text = radioButtons.SingleOrDefault(radioButton => radioButton.Checked).Text;
-            client.SendMessage(text);
+            client?.SendMessage(text);
         }
 
         private void Client_InfoMessage(string info)

@@ -32,6 +32,7 @@ namespace Client.ClientModel
                 {
                     InfoMessage("Клиент " + DateTime.Now + " успешно подключился к серверу ");
                 }
+                GetInfoMessageServer();
             }
             catch (SocketException sockEx)
             {
@@ -75,13 +76,25 @@ namespace Client.ClientModel
         /// </summary>
         private void GetInfoMessageServer()
         {
-            //Получаем ответ от сервера
-            //Буфер для хранения принятого массива bytes.
-            byte[] dataFromServer = new byte[1024];
-            //Читаем сообщение
-            Int32 bytes = client.GetStream().Read(dataFromServer, 0, dataFromServer.Length);
-            string responseData = Encoding.UTF8.GetString(dataFromServer, 0, bytes);
-            InfoMessage("От сервера получено в " + DateTime.Now + " сообщение " + responseData);
+            try
+            {
+                //Получаем ответ от сервера
+                //Буфер для хранения принятого массива bytes.
+                byte[] dataFromServer = new byte[1024];
+                //Читаем сообщение
+                Int32 bytes = client.GetStream().Read(dataFromServer, 0, dataFromServer.Length);
+                string responseData = Encoding.UTF8.GetString(dataFromServer, 0, bytes);
+                InfoMessage("От сервера получено в " + DateTime.Now + " сообщение " + responseData);
+            }
+            catch (SocketException sockEx)
+            {
+                InfoMessage("Ошибка сокета: " + sockEx?.Message);
+            }
+            catch (Exception ex)
+            {
+                InfoMessage("Ошибка: " + ex.Message);
+            }
+
         }
         /// <summary>
         /// Отключение от сервера

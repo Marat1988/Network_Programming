@@ -37,6 +37,9 @@ namespace ServerListener
             this.labelLog = new System.Windows.Forms.Label();
             this.buttonStartServer = new System.Windows.Forms.Button();
             this.buttonStopServer = new System.Windows.Forms.Button();
+            this.labelMaxRequestsUser = new System.Windows.Forms.Label();
+            this.numericUpDownMaxRequestsUser = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxRequestsUser)).BeginInit();
             this.SuspendLayout();
             // 
             // labelIPAddr
@@ -59,7 +62,7 @@ namespace ServerListener
             // labelPort
             // 
             this.labelPort.AutoSize = true;
-            this.labelPort.Location = new System.Drawing.Point(194, 22);
+            this.labelPort.Location = new System.Drawing.Point(238, 22);
             this.labelPort.Name = "labelPort";
             this.labelPort.Size = new System.Drawing.Size(35, 13);
             this.labelPort.TabIndex = 2;
@@ -67,27 +70,28 @@ namespace ServerListener
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(235, 19);
+            this.textBoxPort.Location = new System.Drawing.Point(295, 19);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(100, 20);
             this.textBoxPort.TabIndex = 3;
             this.textBoxPort.Text = "1234";
+            this.textBoxPort.TextChanged += new System.EventHandler(this.textBoxPort_TextChanged);
             // 
             // listBoxLog
             // 
             this.listBoxLog.FormattingEnabled = true;
             this.listBoxLog.HorizontalScrollbar = true;
-            this.listBoxLog.Location = new System.Drawing.Point(12, 67);
+            this.listBoxLog.Location = new System.Drawing.Point(12, 118);
             this.listBoxLog.Name = "listBoxLog";
             this.listBoxLog.ScrollAlwaysVisible = true;
-            this.listBoxLog.Size = new System.Drawing.Size(323, 173);
+            this.listBoxLog.Size = new System.Drawing.Size(383, 173);
             this.listBoxLog.TabIndex = 4;
             // 
             // labelLog
             // 
             this.labelLog.AutoSize = true;
             this.labelLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelLog.Location = new System.Drawing.Point(12, 51);
+            this.labelLog.Location = new System.Drawing.Point(12, 91);
             this.labelLog.Name = "labelLog";
             this.labelLog.Size = new System.Drawing.Size(87, 13);
             this.labelLog.TabIndex = 5;
@@ -95,7 +99,7 @@ namespace ServerListener
             // 
             // buttonStartServer
             // 
-            this.buttonStartServer.Location = new System.Drawing.Point(12, 265);
+            this.buttonStartServer.Location = new System.Drawing.Point(12, 306);
             this.buttonStartServer.Name = "buttonStartServer";
             this.buttonStartServer.Size = new System.Drawing.Size(137, 50);
             this.buttonStartServer.TabIndex = 6;
@@ -104,18 +108,51 @@ namespace ServerListener
             // 
             // buttonStopServer
             // 
-            this.buttonStopServer.Location = new System.Drawing.Point(197, 265);
+            this.buttonStopServer.Location = new System.Drawing.Point(241, 306);
             this.buttonStopServer.Name = "buttonStopServer";
             this.buttonStopServer.Size = new System.Drawing.Size(138, 50);
             this.buttonStopServer.TabIndex = 7;
             this.buttonStopServer.Text = "Остановить сервер";
             this.buttonStopServer.UseVisualStyleBackColor = true;
             // 
+            // labelMaxRequestsUser
+            // 
+            this.labelMaxRequestsUser.AutoSize = true;
+            this.labelMaxRequestsUser.Location = new System.Drawing.Point(15, 53);
+            this.labelMaxRequestsUser.Name = "labelMaxRequestsUser";
+            this.labelMaxRequestsUser.Size = new System.Drawing.Size(273, 13);
+            this.labelMaxRequestsUser.TabIndex = 8;
+            this.labelMaxRequestsUser.Text = "Максимальное количество запросов пользователя:";
+            // 
+            // numericUpDownMaxRequestsUser
+            // 
+            this.numericUpDownMaxRequestsUser.Location = new System.Drawing.Point(298, 51);
+            this.numericUpDownMaxRequestsUser.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxRequestsUser.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxRequestsUser.Name = "numericUpDownMaxRequestsUser";
+            this.numericUpDownMaxRequestsUser.Size = new System.Drawing.Size(97, 20);
+            this.numericUpDownMaxRequestsUser.TabIndex = 9;
+            this.numericUpDownMaxRequestsUser.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 342);
+            this.ClientSize = new System.Drawing.Size(417, 391);
+            this.Controls.Add(this.numericUpDownMaxRequestsUser);
+            this.Controls.Add(this.labelMaxRequestsUser);
             this.Controls.Add(this.buttonStopServer);
             this.Controls.Add(this.buttonStartServer);
             this.Controls.Add(this.labelLog);
@@ -126,6 +163,7 @@ namespace ServerListener
             this.Controls.Add(this.labelIPAddr);
             this.Name = "FormMain";
             this.Text = "Сервер. Слушатель клиентов";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxRequestsUser)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,6 +179,8 @@ namespace ServerListener
         private System.Windows.Forms.Label labelLog;
         private System.Windows.Forms.Button buttonStartServer;
         private System.Windows.Forms.Button buttonStopServer;
+        private System.Windows.Forms.Label labelMaxRequestsUser;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxRequestsUser;
     }
 }
 

@@ -7,3 +7,4 @@ C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\De
 C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.csproj.CoreCompileInputs.cache
 C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.exe
 C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.pdb
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork3\ServerListener\obj\Debug\ServerListener.csproj.AssemblyReference.cache
