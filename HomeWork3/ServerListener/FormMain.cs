@@ -14,6 +14,13 @@ namespace ServerListener
             ListBox.CheckForIllegalCrossThreadCalls = false;
             buttonStartServer.Click += ButtonStartServer_Click;
             buttonStopServer.Click += ButtonStopServer_Click;
+            buttonLoginPassword.Click += ButtonLoginPassword_Click;
+        }
+
+        private void ButtonLoginPassword_Click(object sender, EventArgs e)
+        {
+            FormLoginPassword formLoginPassword = new FormLoginPassword();
+            formLoginPassword.ShowDialog();
         }
 
         private void ButtonStartServer_Click(object sender, EventArgs e)

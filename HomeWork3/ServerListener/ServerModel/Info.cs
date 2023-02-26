@@ -2,7 +2,7 @@
 
 namespace ServerListener.ServerModel
 {
-    class InfoKurs
+    class Info
     {
         private static Dictionary<string, double> kurs = new Dictionary<string, double>()
         {
@@ -10,6 +10,11 @@ namespace ServerListener.ServerModel
             { "EURO USD", 1.05},
             { "EURO RUB", 79.57},
             { "USD RUB", 74.71},
+        };
+
+        public static Dictionary<string, string> logins = new Dictionary<string, string>
+        {
+            { "Admin", "1234"}
         };
 
         public static string getInfoKurs(string param)

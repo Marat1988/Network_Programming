@@ -131,7 +131,7 @@ namespace ServerListener.ServerModel
                     else
                     {
                         //Узнаем курс
-                        string kursInfo = InfoKurs.getInfoKurs(clientInfo);
+                        string kursInfo = Info.getInfoKurs(clientInfo);
                         if (kursInfo != null)
                         {
                             SendMessage(kursInfo, client);
