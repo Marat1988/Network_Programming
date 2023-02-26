@@ -84,6 +84,14 @@ namespace ServerListener.ServerModel
                     NetworkStream stream = client.GetStream();
                     //Считываем длину данных
                     int length = stream.Read(responseData, 0, responseData.Length);
+                    //Если полученный пакет данных равен нулю, то значит клиент оборвался или отключился
+                    if (client.Available == 0 && client.Client.Poll(1, SelectMode.SelectRead))
+                    {
+                        InfoMessage("Клиент " + client.Client.RemoteEndPoint + " отключился от сети или связь оборвана");
+                        stream.Close();
+                        client.Close();
+                        break;
+                    }
                     //Преобразуем данные в понятную людям кодировку
                     string clientInfo = Encoding.UTF8.GetString(responseData, 0, length);
                     InfoMessage("От клиента " + client.Client.RemoteEndPoint + " получен запрос " + clientInfo);
@@ -106,6 +114,15 @@ namespace ServerListener.ServerModel
             catch (Exception ex)
             {
                 InfoMessage("Ошибка: " + ex.Message);
+            }
+        }
+
+        public void CloseServer()
+        {
+            if (tcpListener != null)
+            {
+                tcpListener.Stop();
+                tcpListener = null;
             }
         }
 

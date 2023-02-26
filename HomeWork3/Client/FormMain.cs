@@ -14,6 +14,12 @@ namespace Client
             ListBox.CheckForIllegalCrossThreadCalls = false;
             buttonConnectToServer.Click += ButtonConnectToServer_Click;
             buttonGetKursFromServer.Click += ButtonGetKursFromServer_Click;
+            buttonDicconectFromServer.Click += ButtonDicconectFromServer_Click;
+        }
+
+        private void ButtonDicconectFromServer_Click(object sender, EventArgs e)
+        {
+            client?.DicconectFromServer();
         }
 
         private void ButtonConnectToServer_Click(object sender, EventArgs e)

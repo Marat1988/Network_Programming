@@ -42,6 +42,7 @@ namespace Client
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.buttonDicconectFromServer = new System.Windows.Forms.Button();
             this.groupBoxKurs.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -175,11 +176,21 @@ namespace Client
             this.radioButton1.Text = "USD EURO";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
+            // buttonDicconectFromServer
+            // 
+            this.buttonDicconectFromServer.Location = new System.Drawing.Point(183, 257);
+            this.buttonDicconectFromServer.Name = "buttonDicconectFromServer";
+            this.buttonDicconectFromServer.Size = new System.Drawing.Size(161, 51);
+            this.buttonDicconectFromServer.TabIndex = 8;
+            this.buttonDicconectFromServer.Text = "Отключиться от сервера";
+            this.buttonDicconectFromServer.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 510);
+            this.Controls.Add(this.buttonDicconectFromServer);
             this.Controls.Add(this.groupBoxKurs);
             this.Controls.Add(this.buttonConnectToServer);
             this.Controls.Add(this.labelLog);
@@ -212,6 +223,7 @@ namespace Client
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button buttonGetKursFromServer;
+        private System.Windows.Forms.Button buttonDicconectFromServer;
     }
 }
 

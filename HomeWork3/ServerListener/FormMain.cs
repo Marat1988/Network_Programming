@@ -25,7 +25,7 @@ namespace ServerListener
 
         private void ButtonStopServer_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            server?.CloseServer();
         }
 
         private void Server_InfoMessage(string info)

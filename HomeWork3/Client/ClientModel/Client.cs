@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Client.ClientModel
 {
@@ -14,7 +11,6 @@ namespace Client.ClientModel
         private string ipAddress;
         private int port;
         private TcpClient client;
-        private NetworkStream stream;
 
         public Client(string ipAddress, int port)
         {
@@ -35,8 +31,6 @@ namespace Client.ClientModel
                 if (client.Connected)
                 {
                     InfoMessage("Клиент " + DateTime.Now + " успешно подключился к серверу ");
-                    //Подключаем поток для чтения и записи
-                    stream = client.GetStream();
                 }
             }
             catch (SocketException sockEx)
@@ -58,6 +52,8 @@ namespace Client.ClientModel
             {
                 //Переводим наше сообщение в массив байтов, который сможет распознать машина
                 byte[] data = Encoding.UTF8.GetBytes(message);
+                //Подключаем поток для чтения и записи
+                NetworkStream stream = client.GetStream();
                 //Отправляем сообщение серверу
                 stream.Write(data, 0, data.Length);
                 InfoMessage("Клиент: В " + DateTime.Now + " отправил " + message);
@@ -81,11 +77,22 @@ namespace Client.ClientModel
         {
             //Получаем ответ от сервера
             //Буфер для хранения принятого массива bytes.
-            byte[] data1 = new byte[1024];
+            byte[] dataFromServer = new byte[1024];
             //Читаем сообщение
-            Int32 bytes = stream.Read(data1, 0, data1.Length);
-            string responseData = Encoding.UTF8.GetString(data1, 0, bytes);
+            Int32 bytes = client.GetStream().Read(dataFromServer, 0, dataFromServer.Length);
+            string responseData = Encoding.UTF8.GetString(dataFromServer, 0, bytes);
             InfoMessage("От сервера получено в " + DateTime.Now + " сообщение " + responseData);
+        }
+        /// <summary>
+        /// Отключение от сервера
+        /// </summary>
+        public void DicconectFromServer()
+        {
+            if (client != null)
+            {
+                client.Close();
+                client = null;
+            }
         }
 
         public event Action<string> InfoMessage;
