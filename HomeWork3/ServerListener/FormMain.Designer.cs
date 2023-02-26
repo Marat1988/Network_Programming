@@ -39,7 +39,10 @@ namespace ServerListener
             this.buttonStopServer = new System.Windows.Forms.Button();
             this.labelMaxRequestsUser = new System.Windows.Forms.Label();
             this.numericUpDownMaxRequestsUser = new System.Windows.Forms.NumericUpDown();
+            this.labelMaxCountConnectClient = new System.Windows.Forms.Label();
+            this.numericUpDownMaxCountConnectClient = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxRequestsUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxCountConnectClient)).BeginInit();
             this.SuspendLayout();
             // 
             // labelIPAddr
@@ -81,7 +84,7 @@ namespace ServerListener
             // 
             this.listBoxLog.FormattingEnabled = true;
             this.listBoxLog.HorizontalScrollbar = true;
-            this.listBoxLog.Location = new System.Drawing.Point(12, 118);
+            this.listBoxLog.Location = new System.Drawing.Point(12, 152);
             this.listBoxLog.Name = "listBoxLog";
             this.listBoxLog.ScrollAlwaysVisible = true;
             this.listBoxLog.Size = new System.Drawing.Size(383, 173);
@@ -91,7 +94,7 @@ namespace ServerListener
             // 
             this.labelLog.AutoSize = true;
             this.labelLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelLog.Location = new System.Drawing.Point(12, 91);
+            this.labelLog.Location = new System.Drawing.Point(12, 125);
             this.labelLog.Name = "labelLog";
             this.labelLog.Size = new System.Drawing.Size(87, 13);
             this.labelLog.TabIndex = 5;
@@ -99,7 +102,7 @@ namespace ServerListener
             // 
             // buttonStartServer
             // 
-            this.buttonStartServer.Location = new System.Drawing.Point(12, 306);
+            this.buttonStartServer.Location = new System.Drawing.Point(12, 340);
             this.buttonStartServer.Name = "buttonStartServer";
             this.buttonStartServer.Size = new System.Drawing.Size(137, 50);
             this.buttonStartServer.TabIndex = 6;
@@ -108,7 +111,7 @@ namespace ServerListener
             // 
             // buttonStopServer
             // 
-            this.buttonStopServer.Location = new System.Drawing.Point(241, 306);
+            this.buttonStopServer.Location = new System.Drawing.Point(241, 340);
             this.buttonStopServer.Name = "buttonStopServer";
             this.buttonStopServer.Size = new System.Drawing.Size(138, 50);
             this.buttonStopServer.TabIndex = 7;
@@ -118,7 +121,7 @@ namespace ServerListener
             // labelMaxRequestsUser
             // 
             this.labelMaxRequestsUser.AutoSize = true;
-            this.labelMaxRequestsUser.Location = new System.Drawing.Point(15, 53);
+            this.labelMaxRequestsUser.Location = new System.Drawing.Point(12, 58);
             this.labelMaxRequestsUser.Name = "labelMaxRequestsUser";
             this.labelMaxRequestsUser.Size = new System.Drawing.Size(273, 13);
             this.labelMaxRequestsUser.TabIndex = 8;
@@ -126,7 +129,7 @@ namespace ServerListener
             // 
             // numericUpDownMaxRequestsUser
             // 
-            this.numericUpDownMaxRequestsUser.Location = new System.Drawing.Point(298, 51);
+            this.numericUpDownMaxRequestsUser.Location = new System.Drawing.Point(298, 56);
             this.numericUpDownMaxRequestsUser.Maximum = new decimal(new int[] {
             5,
             0,
@@ -146,11 +149,44 @@ namespace ServerListener
             0,
             0});
             // 
+            // labelMaxCountConnectClient
+            // 
+            this.labelMaxCountConnectClient.AutoSize = true;
+            this.labelMaxCountConnectClient.Location = new System.Drawing.Point(87, 92);
+            this.labelMaxCountConnectClient.Name = "labelMaxCountConnectClient";
+            this.labelMaxCountConnectClient.Size = new System.Drawing.Size(198, 13);
+            this.labelMaxCountConnectClient.TabIndex = 10;
+            this.labelMaxCountConnectClient.Text = "Максимальное количество клиентов:";
+            // 
+            // numericUpDownMaxCountConnectClient
+            // 
+            this.numericUpDownMaxCountConnectClient.Location = new System.Drawing.Point(295, 90);
+            this.numericUpDownMaxCountConnectClient.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxCountConnectClient.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxCountConnectClient.Name = "numericUpDownMaxCountConnectClient";
+            this.numericUpDownMaxCountConnectClient.Size = new System.Drawing.Size(97, 20);
+            this.numericUpDownMaxCountConnectClient.TabIndex = 11;
+            this.numericUpDownMaxCountConnectClient.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 391);
+            this.ClientSize = new System.Drawing.Size(417, 446);
+            this.Controls.Add(this.numericUpDownMaxCountConnectClient);
+            this.Controls.Add(this.labelMaxCountConnectClient);
             this.Controls.Add(this.numericUpDownMaxRequestsUser);
             this.Controls.Add(this.labelMaxRequestsUser);
             this.Controls.Add(this.buttonStopServer);
@@ -164,6 +200,7 @@ namespace ServerListener
             this.Name = "FormMain";
             this.Text = "Сервер. Слушатель клиентов";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxRequestsUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxCountConnectClient)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,6 +218,8 @@ namespace ServerListener
         private System.Windows.Forms.Button buttonStopServer;
         private System.Windows.Forms.Label labelMaxRequestsUser;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxRequestsUser;
+        private System.Windows.Forms.Label labelMaxCountConnectClient;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxCountConnectClient;
     }
 }
 

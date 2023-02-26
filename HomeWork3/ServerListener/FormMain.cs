@@ -18,7 +18,7 @@ namespace ServerListener
 
         private void ButtonStartServer_Click(object sender, EventArgs e)
         {
-            server = new Server(textBoxIPAddr.Text, Convert.ToInt32(textBoxPort.Text), (int)numericUpDownMaxRequestsUser.Value);
+            server = new Server(textBoxIPAddr.Text, Convert.ToInt32(textBoxPort.Text), (int)numericUpDownMaxRequestsUser.Value, (int)numericUpDownMaxCountConnectClient.Value);
             server.InfoMessage += Server_InfoMessage;
             server.StartServer();
         }

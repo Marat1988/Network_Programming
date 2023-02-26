@@ -13,15 +13,16 @@ namespace ServerListener.ServerModel
         private string ipAddress; //Ip-адрес
         private int port; //Номер порта
         private int maxRequestsUser; //Максимальное количество запросов
-        private delegate void SendMessageUser(string message);
         private List<User> clients; //Подключенные клиенты
+        private int maxCountConnectClient; //Максимальное количество подключений
 
-        public Server(string ipAddress, int port, int maxRequestsUser)
+        public Server(string ipAddress, int port, int maxRequestsUser, int maxCountConnectClient)
         {
             this.ipAddress = ipAddress;
             this.port = port;
             this.maxRequestsUser = maxRequestsUser;
             clients = new List<User>();
+            this.maxCountConnectClient = maxCountConnectClient;
         }
 
         //Запуск сервера
@@ -56,14 +57,24 @@ namespace ServerListener.ServerModel
                 while (true)
                 {
                     TcpClient client = tcpListener.AcceptTcpClient();
-                    SendMessage("Hello", client);
-                    InfoMessage("Сервер: В " + DateTime.Now + " к нам подключился " + client.Client.RemoteEndPoint);
-                    clients.Add(new User(client, 0)); //Добавляем клиентов в массив
-                    //Создаем поток для принятия и отправки сообщений
-                    ParameterizedThreadStart pts = new ParameterizedThreadStart(ThreadMessage);
-                    Thread thread = new Thread(pts);
-                    thread.IsBackground = true;
-                    thread.Start(client);
+                    if (clients.Count == maxCountConnectClient)
+                    {
+                        SendMessage("Сервер находится под нагрузкой. Превышено максимальное количество клиентов!", client);
+                        InfoMessage("Сервер: В " + DateTime.Now + " отключил клиента " + client.Client.RemoteEndPoint + " в связи с превышением допустимого количества");
+                        client.Close();
+                    }
+                    else
+                    {
+                        SendMessage("Hello", client);
+                        InfoMessage("Сервер: В " + DateTime.Now + " к нам подключился " + client.Client.RemoteEndPoint);
+                        clients.Add(new User(client, 0)); //Добавляем клиентов в массив
+                                                          //Создаем поток для принятия и отправки сообщений
+                        ParameterizedThreadStart pts = new ParameterizedThreadStart(ThreadMessage);
+                        Thread thread = new Thread(pts);
+                        thread.IsBackground = true;
+                        thread.Start(client);
+                    }
+
                 }
             }
             catch (SocketException sockEx)
@@ -82,6 +93,7 @@ namespace ServerListener.ServerModel
         private void ThreadMessage(object socketClientPara)
         {
             TcpClient client = socketClientPara as TcpClient;
+            User findClient = null;
             try
             {
                 while (true)
@@ -90,9 +102,10 @@ namespace ServerListener.ServerModel
                     byte[] responseData = new byte[1024];
                     //Получаем информацию от клиента
                     NetworkStream stream = client.GetStream();
+                    //Ищем клиента
+                    findClient = clients.Find(user => user.TcpClient.Client.RemoteEndPoint == client.Client.RemoteEndPoint);
                     //Считываем длину данных
                     int length = stream.Read(responseData, 0, responseData.Length);
-                    var findClient = clients.Find(user => user.TcpClient.Client.RemoteEndPoint == client.Client.RemoteEndPoint);
                     findClient.CountRequests++;
                     //Если полученный пакет данных равен нулю, то значит клиент оборвался или отключился
                     if (client.Available == 0 && client.Client.Poll(1, SelectMode.SelectRead))
@@ -129,10 +142,12 @@ namespace ServerListener.ServerModel
             catch (SocketException sockEx)
             {
                 InfoMessage("Ошибка сокета: " + sockEx.Message);
+                clients.Remove(findClient);
             }
             catch (Exception ex)
             {
                 InfoMessage("Ошибка: " + ex.Message);
+                clients.Remove(findClient);
             }
         }
         /// <summary>
