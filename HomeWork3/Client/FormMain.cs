@@ -15,6 +15,19 @@ namespace Client
             buttonConnectToServer.Click += ButtonConnectToServer_Click;
             buttonGetKursFromServer.Click += ButtonGetKursFromServer_Click;
             buttonDicconectFromServer.Click += ButtonDicconectFromServer_Click;
+            buttonSendLoginPassword.Click += ButtonSendLoginPassword_Click;
+            textBoxLogin.TextChanged += TextBoxLogin_TextChanged;
+            textBoxPassword.TextChanged += TextBoxLogin_TextChanged;
+        }
+
+        private void TextBoxLogin_TextChanged(object sender, EventArgs e)
+        {
+            buttonSendLoginPassword.Enabled = textBoxLogin.Text.Length > 0 && textBoxPassword.Text.Length > 0;
+        }
+
+        private void ButtonSendLoginPassword_Click(object sender, EventArgs e)
+        {
+            client.SendMessage(textBoxLogin.Text + "\\" + textBoxPassword.Text);
         }
 
         private void ButtonDicconectFromServer_Click(object sender, EventArgs e)

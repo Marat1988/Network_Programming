@@ -43,7 +43,14 @@ namespace Client
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.buttonDicconectFromServer = new System.Windows.Forms.Button();
+            this.groupBoxUserPassword = new System.Windows.Forms.GroupBox();
+            this.textBoxLogin = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.labelLogin = new System.Windows.Forms.Label();
+            this.labelPassword = new System.Windows.Forms.Label();
+            this.buttonSendLoginPassword = new System.Windows.Forms.Button();
             this.groupBoxKurs.SuspendLayout();
+            this.groupBoxUserPassword.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxIPAddr
@@ -103,7 +110,7 @@ namespace Client
             // 
             this.buttonConnectToServer.Location = new System.Drawing.Point(16, 257);
             this.buttonConnectToServer.Name = "buttonConnectToServer";
-            this.buttonConnectToServer.Size = new System.Drawing.Size(161, 51);
+            this.buttonConnectToServer.Size = new System.Drawing.Size(102, 73);
             this.buttonConnectToServer.TabIndex = 6;
             this.buttonConnectToServer.Text = "Подключиться к серверу";
             this.buttonConnectToServer.UseVisualStyleBackColor = true;
@@ -115,7 +122,7 @@ namespace Client
             this.groupBoxKurs.Controls.Add(this.radioButton3);
             this.groupBoxKurs.Controls.Add(this.radioButton2);
             this.groupBoxKurs.Controls.Add(this.radioButton1);
-            this.groupBoxKurs.Location = new System.Drawing.Point(16, 332);
+            this.groupBoxKurs.Location = new System.Drawing.Point(16, 421);
             this.groupBoxKurs.Name = "groupBoxKurs";
             this.groupBoxKurs.Size = new System.Drawing.Size(328, 166);
             this.groupBoxKurs.TabIndex = 7;
@@ -178,18 +185,77 @@ namespace Client
             // 
             // buttonDicconectFromServer
             // 
-            this.buttonDicconectFromServer.Location = new System.Drawing.Point(183, 257);
+            this.buttonDicconectFromServer.Location = new System.Drawing.Point(16, 351);
             this.buttonDicconectFromServer.Name = "buttonDicconectFromServer";
-            this.buttonDicconectFromServer.Size = new System.Drawing.Size(161, 51);
+            this.buttonDicconectFromServer.Size = new System.Drawing.Size(102, 60);
             this.buttonDicconectFromServer.TabIndex = 8;
             this.buttonDicconectFromServer.Text = "Отключиться от сервера";
             this.buttonDicconectFromServer.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxUserPassword
+            // 
+            this.groupBoxUserPassword.Controls.Add(this.buttonSendLoginPassword);
+            this.groupBoxUserPassword.Controls.Add(this.labelPassword);
+            this.groupBoxUserPassword.Controls.Add(this.labelLogin);
+            this.groupBoxUserPassword.Controls.Add(this.textBoxPassword);
+            this.groupBoxUserPassword.Controls.Add(this.textBoxLogin);
+            this.groupBoxUserPassword.Location = new System.Drawing.Point(144, 257);
+            this.groupBoxUserPassword.Name = "groupBoxUserPassword";
+            this.groupBoxUserPassword.Size = new System.Drawing.Size(200, 158);
+            this.groupBoxUserPassword.TabIndex = 9;
+            this.groupBoxUserPassword.TabStop = false;
+            this.groupBoxUserPassword.Text = "Логин и пароль:";
+            // 
+            // textBoxLogin
+            // 
+            this.textBoxLogin.Location = new System.Drawing.Point(66, 19);
+            this.textBoxLogin.Name = "textBoxLogin";
+            this.textBoxLogin.Size = new System.Drawing.Size(119, 20);
+            this.textBoxLogin.TabIndex = 0;
+            this.textBoxLogin.Text = "Admin";
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(66, 57);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
+            this.textBoxPassword.Size = new System.Drawing.Size(119, 20);
+            this.textBoxPassword.TabIndex = 1;
+            this.textBoxPassword.Text = "1234";
+            // 
+            // labelLogin
+            // 
+            this.labelLogin.AutoSize = true;
+            this.labelLogin.Location = new System.Drawing.Point(7, 22);
+            this.labelLogin.Name = "labelLogin";
+            this.labelLogin.Size = new System.Drawing.Size(41, 13);
+            this.labelLogin.TabIndex = 2;
+            this.labelLogin.Text = "Логин:";
+            // 
+            // labelPassword
+            // 
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Location = new System.Drawing.Point(7, 60);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(48, 13);
+            this.labelPassword.TabIndex = 3;
+            this.labelPassword.Text = "Пароль:";
+            // 
+            // buttonSendLoginPassword
+            // 
+            this.buttonSendLoginPassword.Location = new System.Drawing.Point(6, 102);
+            this.buttonSendLoginPassword.Name = "buttonSendLoginPassword";
+            this.buttonSendLoginPassword.Size = new System.Drawing.Size(175, 44);
+            this.buttonSendLoginPassword.TabIndex = 4;
+            this.buttonSendLoginPassword.Text = "Отправить логин и пароль";
+            this.buttonSendLoginPassword.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 510);
+            this.ClientSize = new System.Drawing.Size(399, 599);
+            this.Controls.Add(this.groupBoxUserPassword);
             this.Controls.Add(this.buttonDicconectFromServer);
             this.Controls.Add(this.groupBoxKurs);
             this.Controls.Add(this.buttonConnectToServer);
@@ -203,6 +269,8 @@ namespace Client
             this.Text = "Клиент";
             this.groupBoxKurs.ResumeLayout(false);
             this.groupBoxKurs.PerformLayout();
+            this.groupBoxUserPassword.ResumeLayout(false);
+            this.groupBoxUserPassword.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,6 +292,12 @@ namespace Client
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button buttonGetKursFromServer;
         private System.Windows.Forms.Button buttonDicconectFromServer;
+        private System.Windows.Forms.GroupBox groupBoxUserPassword;
+        private System.Windows.Forms.Button buttonSendLoginPassword;
+        private System.Windows.Forms.Label labelPassword;
+        private System.Windows.Forms.Label labelLogin;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.TextBox textBoxLogin;
     }
 }
 

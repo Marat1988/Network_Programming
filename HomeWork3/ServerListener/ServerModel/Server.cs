@@ -65,14 +65,24 @@ namespace ServerListener.ServerModel
                     }
                     else
                     {
-                        SendMessage("Hello", client);
-                        InfoMessage("Сервер: В " + DateTime.Now + " к нам подключился " + client.Client.RemoteEndPoint);
-                        clients.Add(new User(client, 0)); //Добавляем клиентов в массив
-                                                          //Создаем поток для принятия и отправки сообщений
-                        ParameterizedThreadStart pts = new ParameterizedThreadStart(ThreadMessage);
-                        Thread thread = new Thread(pts);
-                        thread.IsBackground = true;
-                        thread.Start(client);
+                        SendMessage("Пришлите логин и пароль в формате Логин\\Пароль, например Admin\\1234", client);
+                        InfoMessage("Сервер: В " + DateTime.Now + " к нам хочет подключиться " + client.Client.RemoteEndPoint);
+                        if (checkLoginPassword(client) == false)
+                        {
+                            SendMessage("Не корректный логин и пароль. Соединение будет закрыто!", client);
+                            client.Close();
+                        }
+                        else
+                        {
+                            SendMessage("Hello", client);
+                            InfoMessage("Сервер: В " + DateTime.Now + " к нам подключился " + client.Client.RemoteEndPoint);
+                            clients.Add(new User(client, 0)); //Добавляем клиентов в массив
+                                                              //Создаем поток для принятия и отправки сообщений
+                            ParameterizedThreadStart pts = new ParameterizedThreadStart(ThreadMessage);
+                            Thread thread = new Thread(pts);
+                            thread.IsBackground = true;
+                            thread.Start(client);
+                        }
                     }
 
                 }
@@ -162,6 +172,41 @@ namespace ServerListener.ServerModel
             //Отправляем данные обратно клиенту (ответ)
             tcpClient.GetStream().Write(msg, 0, msg.Length);
             InfoMessage("Сервер: В " + DateTime.Now + " отправил " + tcpClient.Client.RemoteEndPoint + " " + message);
+        }
+
+        /// <summary>
+        /// Проверка логина и пароля
+        /// </summary>
+        /// <param name="client">TCP клиент</param>
+        /// <returns></returns>
+        private bool checkLoginPassword(TcpClient client)
+        {
+            try
+            {
+                // буфер для получения данных
+                byte[] responseData = new byte[1024];
+                //Получаем информацию от клиента
+                NetworkStream stream = client.GetStream();
+                //Считываем длину данных
+                int length = stream.Read(responseData, 0, responseData.Length);
+                //Преобразуем данные в понятную людям кодировку
+                string clientInfoLoginPassword = Encoding.UTF8.GetString(responseData, 0, length);
+                string[] arr = clientInfoLoginPassword.Split('\\');
+                if (Info.logins.ContainsKey(arr[0]) && Info.logins.ContainsValue(arr[1]))
+                    return true;
+                else
+                    return false;
+            }
+            catch (SocketException sockEx)
+            {
+                InfoMessage("Ошибка сокета: " + sockEx.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                InfoMessage("Ошибка: " + ex.Message);
+                return false;
+            }
         }
 
         public void CloseServer()
