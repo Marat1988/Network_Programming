@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -11,13 +14,15 @@ namespace ServerListener.ServerModel
         private Socket udpSocket;
         private string ipAdress;
         private int port;
-
+        public Image caesarSalad { get; set; }
         public Server(string ipAdress, int port)
         {
             this.ipAdress = ipAdress;
             this.port = port;
         }
-
+        /// <summary>
+        /// Запуск UPD-сервера
+        /// </summary>
         public void StartServer()
         {
             try
@@ -58,6 +63,11 @@ namespace ServerListener.ServerModel
                     InfoMessage("Сервер: В " + DateTime.Now + " от " + Remote.ToString() + " получена строка: " + messageClient);
                     UdpClient client = new UdpClient();
                     sendMessage(client, (IPEndPoint)Remote, Products.getRecipe(messageClient));
+                    if (messageClient == "Салат Цезарь") //Отправка изображения
+                    {
+                        sendImage((IPEndPoint)Remote);
+                    }
+
                 }
             }
             catch (SocketException ex)
@@ -69,6 +79,30 @@ namespace ServerListener.ServerModel
                 InfoMessage("Ошибка: " + ex.Message);
             }
         }
+
+        private void sendImage(IPEndPoint iPEndPoint)
+        {
+            try
+            {
+                Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                MemoryStream ms = new MemoryStream();
+                Bitmap bmp = new Bitmap(caesarSalad);
+                bmp.Save(ms, ImageFormat.Jpeg);
+                byte[] byteArray = ms.ToArray();
+                int n = server.Available;
+                server.Connect(iPEndPoint);
+                server.SendTo(byteArray, iPEndPoint);
+            }
+            catch (SocketException ex)
+            {
+                InfoMessage("Ошибка сокета: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                InfoMessage("Ошибка: " + ex.Message);
+            }
+        }
+
         /// <summary>
         /// Метод отправки сообщения клиенту
         /// </summary>
@@ -81,7 +115,7 @@ namespace ServerListener.ServerModel
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(message);
                 udpClient.Send(bytes, bytes.Length, iPEndPoint);
-                InfoMessage("Сервер: В " + DateTime.Now + " отправил " + iPEndPoint.ToString() + " сообщение: " + message);
+                InfoMessage("Сервер: В " + DateTime.Now + iPEndPoint.ToString() + " отправил сообщение: " + message);
             }
             catch (SocketException ex)
             {

@@ -32,6 +32,7 @@ namespace ServerListener
         {
             server = new Server(textBoxIPAddress.Text, Convert.ToInt32(textBoxPort.Text));
             server.InfoMessage += Server_InfoMessage;
+            server.caesarSalad = pictureBox1.Image;
             server.StartServer();
         }
 

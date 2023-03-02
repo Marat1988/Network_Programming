@@ -14,7 +14,7 @@ namespace Client
 {
     public partial class FormMain : Form
     {
-        UdpClient uclient = new UdpClient();
+        UdpClient uclient = new UdpClient(new Random().Next(65536));
         public FormMain()
         {
             InitializeComponent();
@@ -26,12 +26,19 @@ namespace Client
         {
             ClientModel clientModel = new ClientModel(textBoxIPAddress.Text, int.Parse(textBoxPort.Text), uclient);
             clientModel.InfoMessage += ClientModel_InfoMessage;
+            clientModel.SetImages += ClientModel_SetImages;
             clientModel.sendMessage(textBoxSendMessage.Text);
+        }
+
+        private void ClientModel_SetImages(Image image)
+        {
+            pictureBox1.Image = image;
         }
 
         private void ClientModel_InfoMessage(string infoMessage)
         {
             listBoxLog.Items.Add(infoMessage);
         }
+
     }
 }

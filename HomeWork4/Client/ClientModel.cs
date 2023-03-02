@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Client
 {
@@ -19,13 +18,50 @@ namespace Client
             this.ipAddress = ipAddress;
             this.port = port;
             this.uclient = uclient;
+            Thread thread = new Thread(ServerMessageListener);
+            thread.IsBackground = true;
+            thread.Start();
         }
-
-        public void sendMessage(string message)
+        /// <summary>
+        /// Слушатель сообщений от сервера
+        /// </summary>
+        public void ServerMessageListener()
         {
-            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
             try
             {
+                while (true)
+                {
+                    IPEndPoint iPEnd = null;
+                    //получание дейтаграммы
+                    byte[] responce = uclient.Receive(ref iPEnd);
+                    InfoMessage("От сервера в " + DateTime.Now + " получена строка: " + Encoding.UTF8.GetString(responce));
+                    try
+                    {
+                        ImageConverter convertData = new ImageConverter();
+                        Image image = (Image)convertData.ConvertFrom(responce);
+                        SetImages(image);
+                    }
+                    catch (Exception ex){}
+                }
+            }
+            catch (SocketException ex)
+            {
+                InfoMessage("Ошибка сокета: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                InfoMessage("Ошибка: " + ex.Message);
+            }
+        }
+        /// <summary>
+        /// Отправка сообщение серверу
+        /// </summary>
+        /// <param name="message"></param>
+        public void sendMessage(string message)
+        {
+            try
+            {
+                IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
                 byte[] bytes = Encoding.UTF8.GetBytes(message);
                 uclient.Send(bytes, bytes.Length, iPEndPoint);
 
@@ -41,5 +77,7 @@ namespace Client
         }
 
         public event Action<string> InfoMessage;
+
+        public event Action<Image> SetImages;
     }
 }

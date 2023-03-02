@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ServerListener.ServerModel
 {
@@ -9,7 +10,7 @@ namespace ServerListener.ServerModel
         {
             {"Суп гороходый","Рецепт супа горохового" },
             { "Борщ", "Рецепт борща"},
-            { "Салат \"Цезарь\"","Рецепт салата Цезаря"}
+            { "Салат Цезарь","Рецепт салата Цезаря"}
         };
 
         public static string getRecipe(string dish)
@@ -21,7 +22,13 @@ namespace ServerListener.ServerModel
             }
             catch (Exception ex)
             {
-                recipe = "Неизвестное блюдо";
+                StringBuilder arrRecipe = new StringBuilder();
+                arrRecipe.Append("Неизвестное блюдо. Наш список блюд: ");
+                foreach (var listProduct in listProduct)
+                {
+                    arrRecipe.Append(listProduct.Key + ", ");
+                }
+                recipe = arrRecipe.ToString();
             }
             return recipe;
         }
