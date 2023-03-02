@@ -1,16 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ServerListener.ServerModel
 {
     static class Products
     {
-        public static Dictionary<string, decimal> listProduct = new Dictionary<string, decimal>()
+        public static Dictionary<string, string> listProduct = new Dictionary<string, string>()
         {
-            {"Бананы",2000 },
-            { "Кокосы", 4000},
-            { "Салат \"Цезарь\"",8000},
-            { "Мандарины",12000},
-            { "Оливье",15000}
+            {"Суп гороходый","Рецепт супа горохового" },
+            { "Борщ", "Рецепт борща"},
+            { "Салат \"Цезарь\"","Рецепт салата Цезаря"}
         };
+
+        public static string getRecipe(string dish)
+        {
+            string recipe = "";
+            try
+            {
+                recipe = listProduct[dish];
+            }
+            catch (Exception ex)
+            {
+                recipe = "Неизвестное блюдо";
+            }
+            return recipe;
+        }
     }
 }

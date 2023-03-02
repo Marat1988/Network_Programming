@@ -24,26 +24,14 @@ namespace Client
 
         private void ButtonSendMessage_Click(object sender, EventArgs e)
         {
-            IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(textBoxIPAddress.Text), Convert.ToInt32(textBoxPort.Text));
-            try
-            {
-                              byte[] bytes = Encoding.UTF8.GetBytes(textBoxSendMessage.Text);
-                                uclient.Send(bytes, bytes.Length,iPEndPoint);
-
-            }
-            catch (SocketException ex)
-            {
-                listBoxLog.Items.Add(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                listBoxLog.Items.Add(ex.Message);
-            }
+            ClientModel clientModel = new ClientModel(textBoxIPAddress.Text, int.Parse(textBoxPort.Text), uclient);
+            clientModel.InfoMessage += ClientModel_InfoMessage;
+            clientModel.sendMessage(textBoxSendMessage.Text);
         }
 
-        private void buttonSendMessage_Click_1(object sender, EventArgs e)
+        private void ClientModel_InfoMessage(string infoMessage)
         {
-
+            listBoxLog.Items.Add(infoMessage);
         }
     }
 }
