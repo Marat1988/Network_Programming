@@ -18,45 +18,61 @@ namespace HomeWork1_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            url = url.Replace("YouCity", textBoxCity.Text);
-            url =url.Replace("YouAPIKEY", textBoxAPIKEY.Text);
-            /*HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            string responce;
-            using(StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
+            try
             {
-                responce = streamReader.ReadToEnd();
-            }*/
-            XDocument xDocument = XDocument.Load(url);
-            var sql = (from p in xDocument.Elements("current")
-                      select new
-                      {
-                          Название_города = p.Element("city").Attribute("name").Value,
-                          Минимальная_температура_в_цельциях = p.Element("temperature").Attribute("min").Value,
-                          Максимальная_температура_в_цельциях = p.Element("temperature").Attribute("max").Value,
-                          Описание = p.Element("weather").Attribute("value").Value,
-                          Последнее_обновление = p.Element("lastupdate").Attribute("value").Value
-                      }).ToList();
-            dataGridViewInfo.DataSource = null;
-            dataGridViewInfo.DataSource = sql;
+                url = url.Replace("YouCity", textBoxCity.Text);
+                url = url.Replace("YouAPIKEY", textBoxAPIKEY.Text);
+                /*HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                string responce;
+                using(StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
+                {
+                    responce = streamReader.ReadToEnd();
+                }*/
+                XDocument xDocument = XDocument.Load(url);
+                var sql = (from p in xDocument.Elements("current")
+                           select new
+                           {
+                               Название_города = p.Element("city").Attribute("name").Value,
+                               Минимальная_температура_в_цельциях = p.Element("temperature").Attribute("min").Value,
+                               Максимальная_температура_в_цельциях = p.Element("temperature").Attribute("max").Value,
+                               Описание = p.Element("weather").Attribute("value").Value,
+                               Последнее_обновление = p.Element("lastupdate").Attribute("value").Value
+                           }).ToList();
+                dataGridViewInfo.DataSource = null;
+                dataGridViewInfo.DataSource = sql;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void buttonForecast_Click(object sender, EventArgs e)
         {
-            urlForecast = urlForecast.Replace("YouCity", textBoxCity.Text);
-            urlForecast = urlForecast.Replace("YouAPIKEY", textBoxAPIKEY.Text);
-            XDocument xDocument = XDocument.Load(urlForecast);
-            var sql = (from p in xDocument.Elements("weatherdata").Elements("forecast").Elements("time")
-                       select new
-                       {
-                           Дата_начала = p.Attribute("from").Value,
-                           Дата_кконца = p.Attribute("to").Value,
-                           Минимальная_температура_в_цельциях = p.Element("temperature").Attribute("min").Value,
-                           Максимальная_температура_в_цельциях = p.Element("temperature").Attribute("max").Value,
-                           Описание = p.Element("symbol").Attribute("name").Value
-                       }).ToList();
-            dataGridViewInfo.DataSource = null;
-            dataGridViewInfo.DataSource = sql;
+            try
+            {
+                urlForecast = urlForecast.Replace("YouCity", textBoxCity.Text);
+                urlForecast = urlForecast.Replace("YouAPIKEY", textBoxAPIKEY.Text);
+                XDocument xDocument = XDocument.Load(urlForecast);
+                var sql = (from p in xDocument.Elements("weatherdata").Elements("forecast").Elements("time")
+                           select new
+                           {
+                               Дата_начала = p.Attribute("from").Value,
+                               Дата_кконца = p.Attribute("to").Value,
+                               Минимальная_температура_в_цельциях = p.Element("temperature").Attribute("min").Value,
+                               Максимальная_температура_в_цельциях = p.Element("temperature").Attribute("max").Value,
+                               Описание = p.Element("symbol").Attribute("name").Value
+                           }).ToList();
+                dataGridViewInfo.DataSource = null;
+                dataGridViewInfo.DataSource = sql;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

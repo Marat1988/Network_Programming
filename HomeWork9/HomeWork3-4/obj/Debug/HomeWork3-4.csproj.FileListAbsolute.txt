@@ -1,0 +1,10 @@
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\bin\Debug\HomeWork3-4.exe.config
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\bin\Debug\HomeWork3-4.exe
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\bin\Debug\HomeWork3-4.pdb
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\obj\Debug\HomeWork3-4.csproj.AssemblyReference.cache
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\obj\Debug\HomeWork3_4.FormMain.resources
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\obj\Debug\HomeWork3_4.Properties.Resources.resources
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\obj\Debug\HomeWork3-4.csproj.GenerateResource.cache
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\obj\Debug\HomeWork3-4.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\obj\Debug\HomeWork3-4.exe
+C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork9\HomeWork3-4\obj\Debug\HomeWork3-4.pdb
