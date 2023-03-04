@@ -24,9 +24,10 @@ namespace HomeWork3_4
         {
             try
             {
-                url = url.Replace("YouNameFilm", textBoxNameFilm.Text);
-                url = url.Replace("YouApiKey", textBoxAPIKEY.Text);
-                XDocument xDocument = XDocument.Load(url);
+                string tempUrl = url;
+                tempUrl = tempUrl.Replace("YouNameFilm", textBoxNameFilm.Text);
+                tempUrl = tempUrl.Replace("YouApiKey", textBoxAPIKEY.Text);
+                XDocument xDocument = XDocument.Load(tempUrl);
                 var sql = (from p in xDocument.Elements("root")
                            select new
                            {

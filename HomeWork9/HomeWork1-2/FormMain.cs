@@ -20,8 +20,9 @@ namespace HomeWork1_2
         {
             try
             {
-                url = url.Replace("YouCity", textBoxCity.Text);
-                url = url.Replace("YouAPIKEY", textBoxAPIKEY.Text);
+                string tempUrl = url;
+                tempUrl = tempUrl.Replace("YouCity", textBoxCity.Text);
+                tempUrl = tempUrl.Replace("YouAPIKEY", textBoxAPIKEY.Text);
                 /*HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 string responce;
@@ -29,7 +30,7 @@ namespace HomeWork1_2
                 {
                     responce = streamReader.ReadToEnd();
                 }*/
-                XDocument xDocument = XDocument.Load(url);
+                XDocument xDocument = XDocument.Load(tempUrl);
                 var sql = (from p in xDocument.Elements("current")
                            select new
                            {
@@ -53,9 +54,10 @@ namespace HomeWork1_2
         {
             try
             {
-                urlForecast = urlForecast.Replace("YouCity", textBoxCity.Text);
-                urlForecast = urlForecast.Replace("YouAPIKEY", textBoxAPIKEY.Text);
-                XDocument xDocument = XDocument.Load(urlForecast);
+                string tempUrl = urlForecast;
+                tempUrl = tempUrl.Replace("YouCity", textBoxCity.Text);
+                tempUrl = tempUrl.Replace("YouAPIKEY", textBoxAPIKEY.Text);
+                XDocument xDocument = XDocument.Load(tempUrl);
                 var sql = (from p in xDocument.Elements("weatherdata").Elements("forecast").Elements("time")
                            select new
                            {
