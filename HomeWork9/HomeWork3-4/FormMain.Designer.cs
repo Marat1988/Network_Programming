@@ -83,7 +83,7 @@ namespace HomeWork3_4
             this.textBoxAPIKEY.Name = "textBoxAPIKEY";
             this.textBoxAPIKEY.Size = new System.Drawing.Size(201, 20);
             this.textBoxAPIKEY.TabIndex = 14;
-            this.textBoxAPIKEY.Text = "f53251be";
+            this.textBoxAPIKEY.Text = "1234";
             // 
             // labelApIKEY
             // 

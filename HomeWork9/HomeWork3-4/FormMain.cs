@@ -67,7 +67,7 @@ namespace HomeWork3_4
             {
                 SmtpClient smtp = new SmtpClient("smtp.mail.ru", 25);
                 smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("pirat03071988@mail.ru", "17RFCn8QvET2sGRzzwcm");
+                smtp.Credentials = new NetworkCredential("pirat03071988@mail.ru", "1234");
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress("pirat03071988@mail.ru");
                 mail.To.Add(textBoxRecipient.Text);
