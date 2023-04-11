@@ -105,6 +105,9 @@ namespace HomeWork3_4
             // 
             // textBoxNameFilm
             // 
+            this.textBoxNameFilm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxNameFilm.Location = new System.Drawing.Point(167, 123);
             this.textBoxNameFilm.Name = "textBoxNameFilm";
             this.textBoxNameFilm.Size = new System.Drawing.Size(201, 20);

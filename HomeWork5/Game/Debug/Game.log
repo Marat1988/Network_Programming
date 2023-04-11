@@ -1,3 +1,0 @@
-﻿  Game.cpp
-C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork5\Game\Game.cpp(13,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  Game.vcxproj -> C:\Users\HP\Documents\GitHub\Network_Programming\HomeWork5\Game\Debug\Game.exe
